@@ -1031,16 +1031,15 @@
                         <h3>Vector Illustration Showcase</h3>
                         <p>High-resolution vector tracing and artwork presentation created using Adobe Illustrator tools.</p>
                     </div>
-                    <div>
-                        <div class="project-tags">
-                            <span class="tag">Illustrator</span>
-                            <span class="tag">Vector Tracing</span>
-                        </div>
-                        <div class="project-buttons">
-                            <a href="#" target="_blank" class="btn btn-primary" style="width: 100%;"><i class="fas fa-image"></i> View Design Preview</a>
-                            <a href="#" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> Vector</a>
-                        </div>
-                    </div>
+                   <!-- Buttons -->
+<button onclick="openGallery('mockups')">View Mockups</button>
+<button onclick="openGallery('vectors')">View Vector Designs</button>
+
+<!-- Modal Container -->
+<div id="imageModal" class="modal" style="display:none;">
+  <span onclick="closeGallery()">&times; Close</span>
+  <div id="modalContent"></div>
+</div>
                 </div>
 
                 <!-- Design Project 3 -->
@@ -1265,6 +1264,27 @@
                 }
             });
         });
+        function openGallery(type) {
+  let modal = document.getElementById("imageModal");
+  let content = document.getElementById("modalContent");
+  modal.style.display = "block";
+  
+  if (type === 'mockups') {
+    content.innerHTML = `
+      <img src="images/mockup1.jpg" style="width:100%">
+      <img src="images/mockup2.jpg" style="width:100%">
+    `;
+  } else if (type === 'vectors') {
+    content.innerHTML = `
+      <img src="images/vector1.png" style="width:100%">
+      <img src="images/vector2.png" style="width:100%">
+    `;
+  }
+}
+
+function closeGallery() {
+  document.getElementById("imageModal").style.display = "none";
+}
     </script>
 </body>
 </html>
