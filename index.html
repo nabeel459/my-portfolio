@@ -705,6 +705,87 @@
                 flex-direction: column;
             }
         }
+        /* Project Buttons Styling */
+.project-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.btn-secondary {
+  background-color: #28a745;
+  color: #ffffff;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+/* Modal Overlay Background */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 99999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(8px);
+}
+
+/* Modal Content Box */
+.modal-content {
+  margin: 40px auto;
+  padding: 20px;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+/* Modal Rendered Images */
+.modal-content img {
+  width: 100%;
+  max-width: 850px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Close Button (X) */
+.close-btn {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  color: #ffffff;
+  font-size: 45px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 100000;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: #ff4d4d;
+}
     </style>
 </head>
 <body data-theme="dark">
@@ -1031,18 +1112,24 @@
                         <h3>Vector Illustration Showcase</h3>
                         <p>High-resolution vector tracing and artwork presentation created using Adobe Illustrator tools.</p>
                     </div>
-                   <!-- Buttons -->
-<button onclick="openGallery('mockups')">View Mockups</button>
-<button onclick="openGallery('vectors')">View Vector Designs</button>
-
-<!-- Modal Container -->
-<div id="imageModal" class="modal" style="display:none;">
-  <span onclick="closeGallery()">&times; Close</span>
-  <div id="modalContent"></div>
+                    <!-- Quantum Core Computing Project Card -->
+<div class="project-card">
+  <h2>Quantum Core Computing</h2>
+  <p>Complete Corporate Brand Identity & Marketing Collateral</p>
+  
+  <div class="project-buttons">
+    <button class="btn btn-primary" onclick="openGallery('mockups')">View Mockups</button>
+    <button class="btn btn-secondary" onclick="openGallery('vectors')">View Flat Vectors</button>
+  </div>
 </div>
-                </div>
 
-                <!-- Design Project 3 -->
+<!-- Dynamic Image Lightbox Modal -->
+<div id="galleryModal" class="modal">
+  <span class="close-btn" onclick="closeGallery()">&times;</span>
+  <div class="modal-content" id="modalImagesContainer">
+    <!-- Images Javascript ke zariye yahan display hon gi -->
+  </div>
+</div>
                 <div class="project-card">
                     <div>
                         <h3>Graphic Project Title 03</h3>
@@ -1285,6 +1372,80 @@
 function closeGallery() {
   document.getElementById("imageModal").style.display = "none";
 }
+        // Exact GitHub repository filenames categorized
+const mockupImages = [
+  "Bill board Mockup.jpg",
+  "Car banner Mockup.jpg",
+  "Commerical Envelop Mockup.png",
+  "Envelop Mockup.jpg",
+  "Flyer Mockup.jpg",
+  "Sign Board Mockups.jpg",
+  "Social media post Mockup.jpg",
+  "Standee Mockup.jpg",
+  "Visiting Card Mockup.jpeg"
+];
+
+const vectorImages = [
+  "ADs Squair.jpg",
+  "ADs landscape.jpg",
+  "ADs protrait.jpg",
+  "Bill board DEsigne.jpg",
+  "Broucher Designeai.jpg",
+  "Broucher.jpg",
+  "Comerical Envelope.jpg",
+  "Cre banner Designe.jpg",
+  "Envelope.jpg",
+  "Facebook banner Designe.png",
+  "Flyer Designe.jpg",
+  "Letter headai.jpg",
+  "Sign board Designe.jpg",
+  "Social media post .jpg",
+  "Standee.jpg",
+  "Youtube Banner safe zone.jpg",
+  "Youtube banner destop size.jpg",
+  "Youtube banner.jpg",
+  "visiting card.jpg"
+];
+
+// Open Gallery Function
+function openGallery(type) {
+  const modal = document.getElementById("galleryModal");
+  const container = document.getElementById("modalImagesContainer");
+  
+  // Clear previous gallery items
+  container.innerHTML = "";
+  
+  // Choose array based on user click
+  const selectedImages = (type === 'mockups') ? mockupImages : vectorImages;
+  
+  // Dynamically append images to modal
+  selectedImages.forEach(src => {
+    const imgElement = document.createElement("img");
+    imgElement.src = src; // Filenames match root folder structure
+    imgElement.alt = "Quantum Core Computing Design Asset";
+    imgElement.loading = "lazy";
+    container.appendChild(imgElement);
+  });
+  
+  // Show modal and freeze background scroll
+  modal.style.display = "block";
+  document.body.style.overflow = "hidden";
+}
+
+// Close Gallery Function
+function closeGallery() {
+  const modal = document.getElementById("galleryModal");
+  modal.style.display = "none";
+  document.body.style.overflow = "auto";
+}
+
+// Close Modal when clicking outside the image container
+window.onclick = function(event) {
+  const modal = document.getElementById("galleryModal");
+  if (event.target === modal) {
+    closeGallery();
+  }
+};
     </script>
 </body>
 </html>
